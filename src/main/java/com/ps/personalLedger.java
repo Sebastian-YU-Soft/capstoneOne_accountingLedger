@@ -1,5 +1,7 @@
 package com.ps;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class personalLedger {
@@ -11,7 +13,18 @@ public class personalLedger {
         mainMenu();
     }
 
-    public static void mainMenu(){
+    private static void ensureCSVFileExists(){
+        try {
+            File file = new File(CSV_FILE);
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+        } catch (IOException e) {
+            System.out.println("Creating A CSV file:"+ e.getMessage());
+        }
+    }
+
+    private static void mainMenu(){
         boolean running = true;
         while (running){
             System.out.println("Home Screen");
