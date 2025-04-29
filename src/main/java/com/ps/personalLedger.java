@@ -1,8 +1,10 @@
 package com.ps;
 
 import java.io.*;
-import java.nio.channels.ScatteringByteChannel;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Scanner;
 
 public class personalLedger {
@@ -37,10 +39,10 @@ public class personalLedger {
 
             switch (choice){
                 case "1":
-                    addTransaction(true);
+                    addTransaction(true, e);
                     break;
                 case "2":
-                    addTransaction(false);
+                    addTransaction(false, e);
                     break;
                 case "3":
                     ledgerMenu();
@@ -55,10 +57,10 @@ public class personalLedger {
         }
     }
 
-    private static void addTransaction(boolean isDeposit){
+    private static <e> void addTransaction(boolean isDeposit, Object e){
         try {
-            (FileWriter fw = new FileWriter(CSV_FILE, true);
-            PrintWriter pw = new PrintWriter(fw)){
+            FileWriter fw = new FileWriter(CSV_FILE, true);
+            PrintWriter pw = new PrintWriter(fw);{
 
                 System.out.print("Enter vendor/description:");
                 String description = scanner.nextLine();
@@ -74,12 +76,13 @@ public class personalLedger {
                 pw.println(date + "|" + description + "|" + amount);
                 System.out.println("Transaction saved!");
 
-            }catch(IOException e){
-                System.out.println("Error saving transaction:" + e.getMessage());
-            }
-        } finally {(NumberFormatException e){
-            System.out.println("Invalid amount entered.");
+            }catch (IOException e){
+            System.out.println("Error saving transaction:" + e.getMessage());
+                Object NumberFormatException;
+                try (NumberFormatException =e){
+                System.out.println("Invalid amount entered.");
         }
+
 
         }
     }
@@ -96,7 +99,49 @@ public class personalLedger {
             System.out.println("Enter your choice:");
             String choice = scanner.nextLine().trim().toUpperCase();
 
+            List<String[]> transactions = loadTransactions();
+            Collections.reverse(transactions);
 
+            switch (choice){
+                case "1":
+                    displayTransactions(transactions, "ALL");
+                    break;
+                case "2":
+                    displayTransactions(transactions, "DEPOSITS");
+                    break;
+                case "3":
+                    displayTransactions(transactions, "PAYMENTS");
+                    break;
+                case "4":
+                    reportsMenu(transactions);
+                    break;
+                case "5":
+                    inLedger = false;
+                    break;
+                default:
+                    System.out.println("Invalid option. Try Again.");
+            }
+        }
+    }
+
+    private static List<String[]> loadTransactions(){
+        List<String[]> transactions = new ArrayList<>();
+        try {
+            try (BufferedReader br = new BufferedReader(new FileReader(CSV_FILE))) {){
+                String line;
+                while ((line = br.readLine()) != null) {
+                    String[] parts = line.split("\\|");
+                    if (parts.length == 3) {
+                        transactions.add(parts);
+                    }
+                }
+            }
+            }catch{
+                System.out.println("Error:"+ e.getMessage());
+            }
+            return transactions;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 }
