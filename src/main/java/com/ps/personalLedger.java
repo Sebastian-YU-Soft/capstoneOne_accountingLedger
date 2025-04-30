@@ -225,6 +225,6 @@ import java.util.*;
                     System.out.printf("%-12s %-20s %10.2f\n", entry[0], entry[1], Double.parseDouble(entry[2]));
                 }
             }
-        }n
+        }
     }
 
