@@ -63,6 +63,9 @@ import java.util.*;
                 System.out.print("Enter vendor/description: ");
                 String description = scanner.nextLine();
 
+                System.out.print("Enter category (e.g., Groceries, Rent, Salary): ");
+                String category = scanner.nextLine();
+
                 System.out.print("Enter amount: ");
                 double amount = Double.parseDouble(scanner.nextLine());
 
